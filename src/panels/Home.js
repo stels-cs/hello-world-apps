@@ -1,38 +1,41 @@
-class Example extends React.Component {
-  constructor(props) {
-    super(props);
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Panel, ListItem, Button, Group, Div, Avatar, PanelHeader } from '@vkontakte/vkui';
 
-    this.state = {
-      activeView: 'view1'
-    }
-  }
+const Home = ({ id, go, fetchedUser }) => (
+	<Panel id={id}>
+		<PanelHeader>Example</PanelHeader>
+		{fetchedUser &&
+		<Group title="User Data Fetched with VK Connect">
+			<ListItem
+				before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
+				description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
+			>
+				{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
+			</ListItem>
+		</Group>}
 
-  render() {
-    return (
-      <Root activeView={this.state.activeView}>
-        <View activePanel="panel1.1" id="view1">
-          <Panel id="panel1.1">
-            <PanelHeader>View 1</PanelHeader>
-            <Group>
-              <CellButton onClick={ () => this.setState({ activeView: 'view2' }) }>
-                Open View 2
-              </CellButton>
-            </Group>
-          </Panel>
-        </View>
-        <View header activePanel="panel2.1" id="view2">
-          <Panel id="panel2.1">
-            <PanelHeader>View 2</PanelHeader>
-            <Group>
-              <CellButton onClick={ () => this.setState({ activeView: 'view1' }) }>
-                Back to View 1
-              </CellButton>
-            </Group>
-          </Panel>
-        </View>
-      </Root>
-    )
-  }
-}
+		<Group title="Navigation Example">
+			<Div>
+				<Button size="xl" level="2" onClick={go} data-to="persik">
+					Show me the Persik2, please
+				</Button>
+			</Div>
+		</Group>
+	</Panel>
+);
 
-<Example />
+Home.propTypes = {
+	id: PropTypes.string.isRequired,
+	go: PropTypes.func.isRequired,
+	fetchedUser: PropTypes.shape({
+		photo_200: PropTypes.string,
+		first_name: PropTypes.string,
+		last_name: PropTypes.string,
+		city: PropTypes.shape({
+			title: PropTypes.string,
+		}),
+	}),
+};
+
+export default Home;
