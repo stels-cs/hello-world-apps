@@ -1,6 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Panel, ListItem, Button, Group, Div, Avatar, PanelHeader } from '@vkontakte/vkui';
+import connect from '@vkontakte/vk-connect';
+
+connect.send("VKWebAppInit", {})
+  
+function Resolut() {
+	connect.send("VKWebAppInit", {});
+	connect.send("VKWebAppAllowNotifications")}
+
 
 const Home = ({ id, go, fetchedUser }) => (
 	<Panel id={id}>
@@ -17,8 +25,8 @@ const Home = ({ id, go, fetchedUser }) => (
 
 		<Group title="Navigation Example">
 			<Div>
-				<Button size="xl" level="2" onClick={go} data-to="persik">
-					Show me the Persik, please
+				<Button size="xl" level="2" onClick={Resolut} ">
+					Show me the Persik2, pleaseуууу
 				</Button>
 			</Div>
 		</Group>
